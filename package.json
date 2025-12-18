@@ -1,27 +1,40 @@
 {
-  "name": "high-low",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
-  },
   "dependencies": {
+    "@t3-oss/env-nextjs": "0.13.10",
     "next": "16.0.10",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "zod": "4.2.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
+    "@commitlint/cli": "20.2.0",
+    "@commitlint/config-conventional": "20.2.0",
+    "@secretlint/secretlint-rule-preset-recommend": "11.2.5",
     "@tailwindcss/postcss": "^4",
+    "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@uphold/commitlint-config": "1.1.1",
     "babel-plugin-react-compiler": "1.0.0",
+    "better-typescript-lib": "2.12.0",
+    "lefthook": "2.0.12",
+    "secretlint": "11.2.5",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "name": "high-low",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "format": "biome format --write",
+    "lefthook": "npx lefthook run pre-commit",
+    "lint": "biome check",
+    "secretlint": "secretlint '**/*'",
+    "start": "next start",
+    "type-check": "tsc --noemit"
+  },
+  "version": "0.1.0"
 }
