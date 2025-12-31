@@ -38,7 +38,8 @@
       "Bash(docker system prune:*)",
       "Bash(supabase status:*)",
       "Bash(git rm:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(lsof:*)"
     ]
   }
 }
