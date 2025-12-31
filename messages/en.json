@@ -57,7 +57,9 @@
     "authError": "Authentication Error",
     "authErrorDescription": "There was a problem with authentication. Please try again.",
     "tryAgain": "Try again",
-    "tooManyAttempts": "Too many attempts. Please wait {seconds} seconds."
+    "tooManyAttempts": "Too many attempts. Please wait {seconds} seconds.",
+    "confirmEmailSent": "Confirmation email sent",
+    "confirmEmailSentDescription": "We've sent a confirmation email to your address. Please click the link in the email to activate your account."
   },
   "Sidebar": {
     "menu": "Menu",

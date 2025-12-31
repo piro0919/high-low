@@ -28,7 +28,9 @@
       "Bash(git checkout:*)",
       "Bash(git add:*)",
       "Bash(npx secretlint:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git commit:*)",
+      "Bash(supabase stop:*)"
     ]
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -39,6 +39,7 @@ type SignupFormValues = z.infer<ReturnType<typeof createSignupSchema>>;
 export function SignupForm() {
   const t = useTranslations("Auth");
   const [error, setError] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState(false);
   const { isLocked, remainingSeconds, recordAttempt } = useRateLimit({
     maxAttempts: 5,
     windowMs: 60000,
@@ -77,8 +78,40 @@ export function SignupForm() {
       setError(
         result.errorKey ? t(result.errorKey) : result.errorMessage || "Error",
       );
+      return;
+    }
+
+    if (result.requiresEmailConfirmation) {
+      setEmailSent(true);
     }
   };
+
+  if (emailSent) {
+    return (
+      <FadeIn>
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-primary/10">
+              <Mail className="size-6 text-primary" />
+            </div>
+            <CardTitle className="text-center text-2xl">
+              {t("confirmEmailSent")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-muted-foreground">
+              {t("confirmEmailSentDescription")}
+            </p>
+          </CardContent>
+          <CardFooter className="justify-center">
+            <Link href="/auth/login" className="text-primary hover:underline">
+              {t("backToLogin")}
+            </Link>
+          </CardFooter>
+        </Card>
+      </FadeIn>
+    );
+  }
 
   return (
     <FadeIn>

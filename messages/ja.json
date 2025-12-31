@@ -57,7 +57,9 @@
     "authError": "認証エラー",
     "authErrorDescription": "認証中に問題が発生しました。もう一度お試しください。",
     "tryAgain": "もう一度試す",
-    "tooManyAttempts": "試行回数が多すぎます。{seconds}秒後にお試しください。"
+    "tooManyAttempts": "試行回数が多すぎます。{seconds}秒後にお試しください。",
+    "confirmEmailSent": "確認メールを送信しました",
+    "confirmEmailSentDescription": "ご登録のメールアドレスに確認メールを送信しました。メール内のリンクをクリックして、アカウントを有効化してください。"
   },
   "Sidebar": {
     "menu": "メニュー",

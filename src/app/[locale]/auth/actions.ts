@@ -14,6 +14,7 @@ export type AuthResult = {
   success: boolean;
   errorKey?: string;
   errorMessage?: string;
+  requiresEmailConfirmation?: boolean;
 };
 
 export async function login(formData: FormData): Promise<AuthResult> {
@@ -56,10 +57,20 @@ export async function signup(formData: FormData): Promise<AuthResult> {
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp(result.data);
+  const { data, error } = await supabase.auth.signUp({
+    ...result.data,
+    options: {
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/auth/callback`,
+    },
+  });
 
   if (error) {
     return { success: false, errorMessage: error.message };
+  }
+
+  // メール確認が必要な場合（セッションがない場合）
+  if (!data.session) {
+    return { success: true, requiresEmailConfirmation: true };
   }
 
   revalidatePath("/", "layout");
