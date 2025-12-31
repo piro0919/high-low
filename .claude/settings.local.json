@@ -39,7 +39,8 @@
       "Bash(supabase status:*)",
       "Bash(git rm:*)",
       "Bash(curl:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(node -e:*)"
     ]
   }
 }

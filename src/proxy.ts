@@ -6,23 +6,19 @@ import { updateSession } from "./lib/supabase/middleware";
 const intlMiddleware = createIntlMiddleware(routing);
 
 export default async function proxy(request: NextRequest) {
-  // Supabaseセッションを更新
-  const supabaseResponse = await updateSession(request);
-
-  // next-intlのミドルウェアを実行
+  // next-intlのミドルウェアを先に実行（リライト/リダイレクトを処理）
   const intlResponse = intlMiddleware(request);
 
-  // Supabaseのcookieをintlレスポンスにマージ
-  if (intlResponse) {
-    supabaseResponse.cookies.getAll().forEach((cookie) => {
-      intlResponse.cookies.set(cookie.name, cookie.value);
-    });
-    return intlResponse;
-  }
+  // Supabaseセッションを更新してcookieをマージ
+  const supabaseResponse = await updateSession(request);
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    intlResponse.cookies.set(cookie.name, cookie.value);
+  });
 
-  return supabaseResponse;
+  return intlResponse;
 }
 
 export const config = {
-  matcher: ["/", "/(ja|en)/:path*", "/auth/callback"],
+  // api, _next, _vercel, ファイル拡張子付き、auth/callbackを除くすべてのパス
+  matcher: ["/((?!api|_next|_vercel|auth/callback|.*\\..*).*)", "/"],
 };
