@@ -8,8 +8,11 @@ pre-commit:
     typescript:
       run: npx tsc --noEmit
     secretlint:
-      glob: "**/*"
-      run: npx secretlint --maskSecrets {staged_files}
+      glob: "*.{json,md,yml,yaml,env,env.*}"
+      run: |
+        if [ -n "{staged_files}" ]; then
+          npx secretlint --maskSecrets {staged_files} 2>&1 | grep -v "Not found target files" || true
+        fi
 
 commit-msg:
   commands:

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
 import { MoodCalendar } from "./_components/mood-calendar";
 
 export async function generateMetadata({
@@ -9,12 +10,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // ログインユーザーはnoindex、未ログイン（ランディング）はインデックス
+  if (user) {
+    return {
+      title: t("home"),
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
   return {
-    title: t("home"),
-    robots: {
-      index: false,
-      follow: false,
+    title: {
+      absolute: t("title"),
     },
+    description: t("description"),
   };
 }
 
