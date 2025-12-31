@@ -22,7 +22,8 @@ export function PwaInstallButton() {
     showInstallPrompt,
   } = usePwa();
 
-  if (appinstalled || !canInstallprompt || !enabledPwa || isPwa) {
+  // PWA非対応環境、または既にPWAとして実行中の場合は非表示
+  if (!enabledPwa || isPwa) {
     return null;
   }
 
@@ -33,7 +34,11 @@ export function PwaInstallButton() {
         <CardDescription>{tPwa("installDescription")}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Button onClick={showInstallPrompt} className="w-full">
+        <Button
+          onClick={showInstallPrompt}
+          disabled={!canInstallprompt || appinstalled}
+          className="w-full"
+        >
           <Download className="mr-2 size-4" />
           {tPwa("installApp")}
         </Button>
