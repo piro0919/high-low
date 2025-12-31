@@ -6,6 +6,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import "./globals.css";
 import type { ReactNode } from "react";
+import { Toaster } from "@/components/ui/sonner";
 import { ProgressProvider } from "./_components/progress-provider";
 import { QueryProvider } from "./_components/query-provider";
 import { ThemeProvider } from "./_components/theme-provider";
@@ -104,6 +105,7 @@ export default async function RootLayout({
             <QueryProvider>
               <ProgressProvider>{children}</ProgressProvider>
             </QueryProvider>
+            <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

@@ -126,5 +126,26 @@
     "title": "オフラインです",
     "description": "インターネット接続を確認して、もう一度お試しください。",
     "retry": "再試行"
+  },
+  "Notifications": {
+    "title": "通知",
+    "description": "毎日の記録を促すリマインダーを受け取る",
+    "dailyReminder": "デイリーリマインダー",
+    "notificationTime": "通知時間",
+    "timeMorning": "朝",
+    "timeNoon": "昼",
+    "timeEvening": "夕方",
+    "timeNight": "夜",
+    "enabled": "通知を有効にしました",
+    "enabledDescription": "毎日リマインダーが届きます",
+    "disabled": "通知を無効にしました",
+    "disabledDescription": "リマインダーは届きません",
+    "updated": "設定を更新しました",
+    "updatedDescription": "通知時間を変更しました",
+    "permissionDenied": "許可が必要です",
+    "permissionDeniedDescription": "ブラウザの設定で通知を許可してください",
+    "permissionBlocked": "通知がブロックされています。ブラウザの設定で許可してください。",
+    "error": "エラー",
+    "errorDescription": "通知設定の更新に失敗しました"
   }
 }

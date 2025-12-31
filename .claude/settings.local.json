@@ -41,7 +41,8 @@
       "Bash(curl:*)",
       "Bash(lsof:*)",
       "Bash(node -e:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(npx web-push:*)"
     ]
   }
 }

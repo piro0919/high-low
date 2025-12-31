@@ -126,5 +126,26 @@
     "title": "You're offline",
     "description": "Please check your internet connection and try again.",
     "retry": "Retry"
+  },
+  "Notifications": {
+    "title": "Notifications",
+    "description": "Get daily reminders to record your mood",
+    "dailyReminder": "Daily reminder",
+    "notificationTime": "Notification time",
+    "timeMorning": "Morning",
+    "timeNoon": "Noon",
+    "timeEvening": "Evening",
+    "timeNight": "Night",
+    "enabled": "Notifications enabled",
+    "enabledDescription": "You'll receive daily reminders",
+    "disabled": "Notifications disabled",
+    "disabledDescription": "You won't receive reminders",
+    "updated": "Settings updated",
+    "updatedDescription": "Your notification time has been changed",
+    "permissionDenied": "Permission denied",
+    "permissionDeniedDescription": "Please enable notifications in your browser settings",
+    "permissionBlocked": "Notifications are blocked. Please enable them in your browser settings.",
+    "error": "Error",
+    "errorDescription": "Failed to update notification settings"
   }
 }

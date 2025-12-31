@@ -24,6 +24,14 @@ const PwaInstallButton = dynamic(
   { ssr: false },
 );
 
+const NotificationSettings = dynamic(
+  () =>
+    import("./_components/notification-settings").then(
+      (mod) => mod.NotificationSettings,
+    ),
+  { ssr: false },
+);
+
 export function SettingsClient() {
   const t = useTranslations("Settings");
   const tSidebar = useTranslations("Sidebar");
@@ -93,6 +101,8 @@ export function SettingsClient() {
       </Card>
 
       <PwaInstallButton />
+
+      <NotificationSettings />
 
       <div className="pt-4">
         <form action={logout}>
