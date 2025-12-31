@@ -43,7 +43,11 @@
       "Bash(node -e:*)",
       "Bash(pkill:*)",
       "Bash(npx web-push:*)",
-      "Bash(npx tsx scripts/test-push.ts)"
+      "Bash(npx tsx scripts/test-push.ts)",
+      "Bash(jq:*)",
+      "Bash(npx tsx:*)",
+      "Bash(npm run push:test:*)",
+      "Bash(npm run push:test:prod:*)"
     ]
   }
 }

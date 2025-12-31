@@ -41,16 +41,16 @@ export async function GET(request: Request) {
 
   // Supabaseクライアント（サービスロール）
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const secretKey = process.env.SUPABASE_SECRET_KEY;
 
-  if (!(supabaseUrl && serviceRoleKey)) {
+  if (!(supabaseUrl && secretKey)) {
     return NextResponse.json(
       { error: "Missing Supabase configuration" },
       { status: 500 },
     );
   }
 
-  const supabase = createClient(supabaseUrl, serviceRoleKey);
+  const supabase = createClient(supabaseUrl, secretKey);
 
   // 該当スロットのサブスクリプションを取得
   const { data: subscriptions, error } = await supabase

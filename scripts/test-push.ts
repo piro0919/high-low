@@ -1,23 +1,47 @@
 /**
- * Push通知のローカルテスト用スクリプト
+ * Push通知のテスト用スクリプト
  *
  * 使い方:
- * 1. 設定画面で通知を有効にする
- * 2. このスクリプトを実行: npx tsx scripts/test-push.ts
+ * ローカル（全員）:     npm run push:test
+ * ローカル（特定ユーザー）: npm run push:test -- --user <user_id>
+ * 本番（特定ユーザー）:   npm run push:test:prod -- --user <user_id>
+ *
+ * オプション:
+ * --prod        本番環境の設定を使用
+ * --user <id>   特定のユーザーIDにのみ送信（本番環境では必須）
+ *
+ * 環境変数ファイル:
+ * - ローカル: .env.local
+ * - 本番:     .env.production.local
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { config as loadEnv } from "dotenv";
 import webpush from "web-push";
 
-// ローカル環境変数
-const SUPABASE_URL = "http://127.0.0.1:56321";
-const SERVICE_ROLE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU";
+const isProd = process.argv.includes("--prod");
 
-const VAPID_PUBLIC_KEY =
-  "BBymW-qWc95Zwt3UuVCiuMllf66WWAbP7Q5isZ67qXnxVPkjRRzt931BQRXxR4weTYTyUstCplDciCZTyX_I-ks";
-const VAPID_PRIVATE_KEY = "RioTeTbD1mkd_jJZ2aEWGYjS2fkyOTkCEdxbHcgxxzE";
-const VAPID_SUBJECT = "mailto:piro.haniwa@gmail.com";
+// --user オプションの解析
+const userIndex = process.argv.indexOf("--user");
+const targetUserId = userIndex !== -1 ? process.argv[userIndex + 1] : null;
+
+// 環境に応じた.envファイルを読み込む
+// ローカル: .env.local、本番: .env.production.local
+const envFile = isProd ? ".env.production.local" : ".env.local";
+loadEnv({ path: envFile });
+
+console.log(`📁 環境変数ファイル: ${envFile}`);
+
+// 環境設定
+// NEXT_PUBLIC_プレフィックス付きの変数も対応
+const envConfig = {
+  supabaseUrl: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
+  serviceRoleKey: process.env.SUPABASE_SECRET_KEY,
+  vapidPublicKey:
+    process.env.VAPID_PUBLIC_KEY || process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+  vapidPrivateKey: process.env.VAPID_PRIVATE_KEY,
+  vapidSubject: process.env.VAPID_SUBJECT,
+};
 
 const messages = {
   en: {
@@ -31,19 +55,63 @@ const messages = {
 };
 
 async function main() {
-  console.log("🔔 Push通知テストを開始します...\n");
+  console.log(
+    `🔔 Push通知テストを開始します... (${isProd ? "本番" : "ローカル"})\n`,
+  );
+
+  // 本番環境では --user オプションが必須
+  if (isProd && !targetUserId) {
+    console.error("❌ 本番環境では --user オプションが必須です");
+    console.error("   使用例: npm run push:test:prod -- --user <user_id>");
+    process.exit(1);
+  }
+
+  if (targetUserId) {
+    console.log(`👤 対象ユーザー: ${targetUserId}\n`);
+  }
+
+  // 環境変数チェック
+  if (
+    !(
+      envConfig.supabaseUrl &&
+      envConfig.serviceRoleKey &&
+      envConfig.vapidPublicKey &&
+      envConfig.vapidPrivateKey &&
+      envConfig.vapidSubject
+    )
+  ) {
+    console.error("❌ 必要な環境変数が設定されていません");
+    console.error(`   ${envFile} に以下を設定してください:`);
+    console.error(
+      "   SUPABASE_URL, SUPABASE_SECRET_KEY, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT",
+    );
+    process.exit(1);
+  }
 
   // VAPIDの設定
-  webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+  webpush.setVapidDetails(
+    envConfig.vapidSubject,
+    envConfig.vapidPublicKey,
+    envConfig.vapidPrivateKey,
+  );
 
   // Supabaseクライアント
-  const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
+  const supabase = createClient(
+    envConfig.supabaseUrl,
+    envConfig.serviceRoleKey,
+  );
 
-  // すべてのサブスクリプションを取得
-  const { data: subscriptions, error } = await supabase
+  // サブスクリプションを取得
+  let query = supabase
     .from("push_subscriptions")
     .select("*")
     .eq("enabled", true);
+
+  if (targetUserId) {
+    query = query.eq("user_id", targetUserId);
+  }
+
+  const { data: subscriptions, error } = await query;
 
   if (error) {
     console.error("❌ サブスクリプションの取得に失敗:", error.message);
@@ -74,7 +142,8 @@ async function main() {
     });
 
     try {
-      await webpush.sendNotification(
+      console.log(`\n📤 送信先: ${sub.endpoint.slice(0, 60)}...`);
+      const result = await webpush.sendNotification(
         {
           endpoint: sub.endpoint,
           keys: {
@@ -87,6 +156,9 @@ async function main() {
       console.log(
         `✅ 通知送信成功 (user: ${sub.user_id.slice(0, 8)}..., locale: ${locale})`,
       );
+      console.log(`   Status: ${result.statusCode}`);
+      console.log(`   Body: ${result.body || "(empty)"}`);
+      console.log(`   Location: ${result.headers?.location || "(none)"}`);
     } catch (err) {
       const error = err as { statusCode?: number; message?: string };
       console.error(

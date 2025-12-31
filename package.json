@@ -12,7 +12,9 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "secretlint": "secretlint '**/*'"
+    "secretlint": "secretlint '**/*'",
+    "push:test": "tsx scripts/test-push.ts",
+    "push:test:prod": "tsx scripts/test-push.ts --prod"
   },
   "dependencies": {
     "@bprogress/core": "1.3.4",
@@ -69,6 +71,7 @@
     "@types/web-push": "3.6.4",
     "babel-plugin-react-compiler": "1.0.0",
     "better-typescript-lib": "2.12.0",
+    "dotenv": "17.2.3",
     "lefthook": "2.0.13",
     "next-sitemap": "4.2.3",
     "puppeteer": "24.34.0",

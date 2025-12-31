@@ -83,24 +83,28 @@ self.addEventListener("push", (event) => {
     return;
   }
 
-  const data = event.data.json() as {
-    title: string;
-    body: string;
-    icon?: string;
-    badge?: string;
-    url?: string;
-  };
+  try {
+    const data = event.data.json() as {
+      title: string;
+      body: string;
+      icon?: string;
+      badge?: string;
+      url?: string;
+    };
 
-  const options = {
-    body: data.body,
-    icon: data.icon || "/icon-192.png",
-    badge: data.badge || "/icon-192.png",
-    data: { url: data.url || "/" },
-    vibrate: [100, 50, 100],
-    requireInteraction: true,
-  } satisfies NotificationOptions & { vibrate?: number[] };
+    const options = {
+      body: data.body,
+      icon: data.icon || "/icon-192.png",
+      badge: data.badge || "/icon-192.png",
+      data: { url: data.url || "/" },
+      vibrate: [100, 50, 100],
+      requireInteraction: true,
+    } satisfies NotificationOptions & { vibrate?: number[] };
 
-  event.waitUntil(self.registration.showNotification(data.title, options));
+    event.waitUntil(self.registration.showNotification(data.title, options));
+  } catch (error) {
+    console.error("[SW] Error processing push:", error);
+  }
 });
 
 // Notification click handling
