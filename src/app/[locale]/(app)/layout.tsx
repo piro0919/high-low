@@ -24,7 +24,9 @@ export default async function AppLayout({ children }: AppLayoutProps) {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="flex h-svh flex-col overflow-hidden">
-        <main className="min-h-0 flex-1 p-2 md:p-4">{children}</main>
+        <main className="min-h-0 flex-1 overflow-y-auto p-2 md:p-4">
+          {children}
+        </main>
         <MobileNav />
       </SidebarInset>
       <PwaPrompt />

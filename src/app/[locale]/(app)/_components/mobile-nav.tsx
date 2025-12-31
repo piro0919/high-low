@@ -27,7 +27,7 @@ export function MobileNav() {
   ];
 
   return (
-    <nav className="flex h-14 shrink-0 items-center justify-around border-t bg-background md:hidden">
+    <nav className="relative z-50 flex h-14 shrink-0 items-center justify-around border-t bg-background md:hidden">
       {menuItems.map((item) => {
         const isActive = pathname === item.url;
         return (
