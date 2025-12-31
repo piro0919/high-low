@@ -1,1 +1,128 @@
-{}
+{
+  "Metadata": {
+    "title": "High or Low",
+    "description": "シンプルで判断を含まない、毎日のエネルギーレベルを記録するムードトラッカー",
+    "home": "ホーム",
+    "stats": "統計",
+    "settings": "設定",
+    "login": "ログイン",
+    "signup": "新規登録"
+  },
+  "HomePage": {
+    "title": "今日のテンション"
+  },
+  "Landing": {
+    "hero": "毎日のエネルギーを記録しよう",
+    "heroDescription": "シンプルで判断を含まない、あなたのエネルギーパターンを理解するためのムードトラッカー。",
+    "getStarted": "はじめる",
+    "feature1Title": "シンプルな記録",
+    "feature1Description": "毎日のエネルギーレベルを1〜5で評価するだけ。複雑な質問やアンケートは不要です。",
+    "feature2Title": "ビジュアルカレンダー",
+    "feature2Description": "色分けされたカレンダーで、気分のパターンを一目で確認できます。",
+    "feature3Title": "プライベート&セキュア",
+    "feature3Description": "あなたのデータは安全に保存され、あなただけがアクセスできます。",
+    "ctaTitle": "今日から始めよう",
+    "ctaDescription": "あなたのエネルギーパターンを理解する第一歩を踏み出しましょう。",
+    "badge": "シンプルなムードトラッキング",
+    "featuresTitle": "選ばれる理由",
+    "featuresDescription": "最小限の手間で、最大限の気づきを。"
+  },
+  "Auth": {
+    "login": "ログイン",
+    "signup": "新規登録",
+    "logout": "ログアウト",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "noAccount": "アカウントをお持ちでない方",
+    "hasAccount": "すでにアカウントをお持ちの方",
+    "forgotPassword": "パスワードをお忘れの方",
+    "resetPassword": "パスワードをリセット",
+    "resetPasswordDescription": "メールアドレスを入力してください。パスワードリセット用のリンクをお送りします。",
+    "resetPasswordSent": "パスワードリセット用のメールを送信しました",
+    "resetPasswordSentDescription": "メールをご確認ください。リンクをクリックしてパスワードをリセットしてください。",
+    "backToLogin": "ログインに戻る",
+    "sendResetLink": "リセットリンクを送信",
+    "updatePassword": "パスワードを更新",
+    "updatePasswordDescription": "新しいパスワードを入力してください。",
+    "newPassword": "新しいパスワード",
+    "confirmPassword": "パスワード確認",
+    "updatePasswordButton": "パスワードを更新",
+    "passwordUpdated": "パスワードを更新しました",
+    "passwordUpdatedDescription": "パスワードが正常に更新されました。",
+    "passwordMismatch": "パスワードが一致しません",
+    "confirmPasswordRequired": "パスワードを確認してください",
+    "invalidEmail": "無効なメールアドレスです",
+    "passwordTooShort": "パスワードは8文字以上で入力してください",
+    "notAuthenticated": "ログインが必要です",
+    "authError": "認証エラー",
+    "authErrorDescription": "認証中に問題が発生しました。もう一度お試しください。",
+    "tryAgain": "もう一度試す",
+    "tooManyAttempts": "試行回数が多すぎます。{seconds}秒後にお試しください。"
+  },
+  "Sidebar": {
+    "menu": "メニュー",
+    "home": "ホーム",
+    "stats": "統計",
+    "settings": "設定",
+    "logout": "ログアウト"
+  },
+  "Mood": {
+    "calendar": "テンションカレンダー",
+    "recordMood": "今日はどんな感じ？",
+    "low": "静か",
+    "high": "活発",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "deleteConfirm": "この記録を削除しますか？",
+    "todayReminder": "今日の調子を記録しませんか？",
+    "tapToRecord": "タップして記録",
+    "monthFormat": "yyyy年M月",
+    "dayLabel": "{date}、レベル{level}",
+    "dayLabelNoEntry": "{date}、記録なし",
+    "prevMonth": "前の月",
+    "nextMonth": "次の月"
+  },
+  "Stats": {
+    "title": "統計"
+  },
+  "Settings": {
+    "title": "設定",
+    "theme": "テーマ",
+    "themeDescription": "アプリのテーマを選択",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeSystem": "システム",
+    "language": "言語",
+    "languageDescription": "表示言語を選択"
+  },
+  "Chart": {
+    "noData": "データがありません",
+    "average": "平均",
+    "last30Days": "直近30日間"
+  },
+  "PWA": {
+    "installApp": "アプリをインストール",
+    "installDescription": "High or Lowをデバイスにインストールして、より快適に使用できます",
+    "copyTitle": "ホーム画面に追加",
+    "copyDescription": "このアプリをデバイスにインストールすると、いつでもすぐにアクセスできます。",
+    "copyShareStep": "メニューバーの共有ボタンをタップ",
+    "copyAddToHomeScreenStep": "「ホーム画面に追加」を選択"
+  },
+  "Error": {
+    "title": "エラーが発生しました",
+    "description": "申し訳ありませんが、問題が発生しました。",
+    "retry": "もう一度試す",
+    "backHome": "ホームに戻る"
+  },
+  "NotFound": {
+    "title": "ページが見つかりません",
+    "description": "お探しのページは存在しないか、移動した可能性があります。",
+    "backHome": "ホームに戻る"
+  },
+  "Offline": {
+    "title": "オフラインです",
+    "description": "インターネット接続を確認して、もう一度お試しください。",
+    "retry": "再試行"
+  }
+}

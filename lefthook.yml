@@ -1,20 +1,17 @@
 pre-commit:
   parallel: true
   commands:
-    format:
-      glob: "**/*.{js,jsx,ts,tsx,json,css,md,yml,yaml}"
-      run: npx biome format --write {staged_files}
+    biome:
+      glob: "*.{ts,tsx,js,jsx,json}"
+      run: npx biome check --write {staged_files}
       stage_fixed: true
-    lint:
-      glob: "src/**/*.{ts,tsx}"
-      run: npx biome lint --fix {staged_files}
-      stage_fixed: true
+    typescript:
+      run: npx tsc --noEmit
     secretlint:
       glob: "**/*"
       run: npx secretlint --maskSecrets {staged_files}
-    typecheck:
-      run: npx tsc --noEmit
+
 commit-msg:
-  scripts:
-    "commitlint.sh":
-      runner: bash
+  commands:
+    commitlint:
+      run: npx commitlint --edit {1}

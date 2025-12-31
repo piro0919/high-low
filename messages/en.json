@@ -1,1 +1,128 @@
-{}
+{
+  "Metadata": {
+    "title": "High or Low",
+    "description": "Track your daily energy levels with a simple and non-judgmental mood tracker",
+    "home": "Home",
+    "stats": "Stats",
+    "settings": "Settings",
+    "login": "Log in",
+    "signup": "Sign up"
+  },
+  "HomePage": {
+    "title": "Today's Mood"
+  },
+  "Landing": {
+    "hero": "Track your daily energy",
+    "heroDescription": "A simple, non-judgmental mood tracker that helps you understand your energy patterns over time.",
+    "getStarted": "Get Started",
+    "feature1Title": "Simple Recording",
+    "feature1Description": "Rate your energy level from 1 to 5 each day. No complicated questions or lengthy surveys.",
+    "feature2Title": "Visual Calendar",
+    "feature2Description": "See your mood patterns at a glance with a color-coded calendar view.",
+    "feature3Title": "Private & Secure",
+    "feature3Description": "Your data is securely stored and only accessible to you.",
+    "ctaTitle": "Start tracking today",
+    "ctaDescription": "Join and begin understanding your energy patterns.",
+    "badge": "Simple mood tracking",
+    "featuresTitle": "Why choose us?",
+    "featuresDescription": "Track your daily energy with minimal effort and maximum insight."
+  },
+  "Auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "resetPasswordDescription": "Enter your email address and we'll send you a link to reset your password.",
+    "resetPasswordSent": "Reset link sent",
+    "resetPasswordSentDescription": "Check your email for a link to reset your password.",
+    "backToLogin": "Back to login",
+    "sendResetLink": "Send reset link",
+    "updatePassword": "Update Password",
+    "updatePasswordDescription": "Enter your new password below.",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "updatePasswordButton": "Update Password",
+    "passwordUpdated": "Password updated",
+    "passwordUpdatedDescription": "Your password has been successfully updated.",
+    "passwordMismatch": "Passwords do not match",
+    "confirmPasswordRequired": "Please confirm your password",
+    "invalidEmail": "Invalid email address",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "notAuthenticated": "Please log in",
+    "authError": "Authentication Error",
+    "authErrorDescription": "There was a problem with authentication. Please try again.",
+    "tryAgain": "Try again",
+    "tooManyAttempts": "Too many attempts. Please wait {seconds} seconds."
+  },
+  "Sidebar": {
+    "menu": "Menu",
+    "home": "Home",
+    "stats": "Stats",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "Mood": {
+    "calendar": "Mood Calendar",
+    "recordMood": "How are you feeling?",
+    "low": "Calm",
+    "high": "Active",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this entry?",
+    "todayReminder": "How are you feeling today?",
+    "tapToRecord": "Tap to record",
+    "monthFormat": "MMMM yyyy",
+    "dayLabel": "{date}, Level {level}",
+    "dayLabelNoEntry": "{date}, No entry",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month"
+  },
+  "Stats": {
+    "title": "Stats"
+  },
+  "Settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "themeDescription": "Select the theme for the app",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "language": "Language",
+    "languageDescription": "Select your preferred language"
+  },
+  "Chart": {
+    "noData": "No data available",
+    "average": "Average",
+    "last30Days": "Last 30 Days"
+  },
+  "PWA": {
+    "installApp": "Install App",
+    "installDescription": "Install High or Low on your device for a better experience",
+    "copyTitle": "Add to Home Screen",
+    "copyDescription": "This app can be installed on your device for quick access anytime.",
+    "copyShareStep": "Tap the share button in the menu bar",
+    "copyAddToHomeScreenStep": "Select 'Add to Home Screen'"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "We're sorry, but an error occurred.",
+    "retry": "Try again",
+    "backHome": "Back to home"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "Offline": {
+    "title": "You're offline",
+    "description": "Please check your internet connection and try again.",
+    "retry": "Retry"
+  }
+}

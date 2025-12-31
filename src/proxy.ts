@@ -1,11 +1,28 @@
-import createMiddleware from "next-intl/middleware";
+import type { NextRequest } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
+import { updateSession } from "./lib/supabase/middleware";
 
-export default createMiddleware(routing);
+const intlMiddleware = createIntlMiddleware(routing);
+
+export default async function middleware(request: NextRequest) {
+  // Supabaseセッションを更新
+  const supabaseResponse = await updateSession(request);
+
+  // next-intlのミドルウェアを実行
+  const intlResponse = intlMiddleware(request);
+
+  // Supabaseのcookieをintlレスポンスにマージ
+  if (intlResponse) {
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      intlResponse.cookies.set(cookie.name, cookie.value);
+    });
+    return intlResponse;
+  }
+
+  return supabaseResponse;
+}
 
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  matcher: ["/", "/(ja|en)/:path*"],
 };

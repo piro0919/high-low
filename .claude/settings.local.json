@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(supabase --version:*)",
+      "Bash(supabase init:*)",
+      "Bash(supabase start:*)",
+      "Bash(docker ps:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(mv:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(supabase migration list:*)",
+      "Bash(supabase db reset:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(git stash:*)",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(supabase link:*)",
+      "Bash(supabase db push:*)",
+      "Bash(npx lefthook:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx commitlint)",
+      "Bash(npm run lint:*)",
+      "Bash(npx biome:*)",
+      "Bash(npm ls:*)",
+      "Bash(node --version:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
