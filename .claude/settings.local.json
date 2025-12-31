@@ -30,7 +30,13 @@
       "Bash(npx secretlint:*)",
       "Bash(git reset:*)",
       "Bash(git commit:*)",
-      "Bash(supabase stop:*)"
+      "Bash(supabase stop:*)",
+      "Bash(docker volume ls:*)",
+      "Bash(docker volume rm:*)",
+      "Bash(xargs:*)",
+      "Bash(docker image prune:*)",
+      "Bash(docker system prune:*)",
+      "Bash(supabase status:*)"
     ]
   }
 }

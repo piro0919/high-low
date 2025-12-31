@@ -24,5 +24,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/(ja|en)/:path*"],
+  matcher: ["/", "/(ja|en)/:path*", "/auth/callback"],
 };
