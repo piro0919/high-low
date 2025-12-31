@@ -20,7 +20,21 @@ export function PwaInstallButton() {
     enabledPwa,
     isPwa,
     showInstallPrompt,
+    isLoading,
   } = usePwa();
+
+  // Debug log
+  console.log("PWA State:", {
+    isLoading,
+    appinstalled,
+    canInstallprompt,
+    enabledPwa,
+    isPwa,
+  });
+
+  if (isLoading) {
+    return null;
+  }
 
   if (appinstalled || !canInstallprompt || !enabledPwa || isPwa) {
     return null;
