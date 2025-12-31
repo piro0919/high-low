@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import "./globals.css";
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
+import { SerwistProvider } from "@/lib/serwist-provider";
 import { ProgressProvider } from "./_components/progress-provider";
 import { QueryProvider } from "./_components/query-provider";
 import { ThemeProvider } from "./_components/theme-provider";
@@ -95,19 +96,21 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange={true}
-          >
-            <QueryProvider>
-              <ProgressProvider>{children}</ProgressProvider>
-            </QueryProvider>
-            <Toaster />
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <SerwistProvider swUrl="/serwist/sw">
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem={true}
+              disableTransitionOnChange={true}
+            >
+              <QueryProvider>
+                <ProgressProvider>{children}</ProgressProvider>
+              </QueryProvider>
+              <Toaster />
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </SerwistProvider>
       </body>
     </html>
   );

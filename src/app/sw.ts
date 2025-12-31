@@ -1,4 +1,4 @@
-import { defaultCache } from "@serwist/next/worker";
+import { defaultCache } from "@serwist/turbopack/worker";
 import type {
   PrecacheEntry,
   RuntimeCaching,
@@ -68,7 +68,7 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
-        url: "/offline",
+        url: "/~offline",
         matcher: ({ request }) => request.destination === "document",
       },
     ],
