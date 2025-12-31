@@ -42,7 +42,8 @@
       "Bash(lsof:*)",
       "Bash(node -e:*)",
       "Bash(pkill:*)",
-      "Bash(npx web-push:*)"
+      "Bash(npx web-push:*)",
+      "Bash(npx tsx scripts/test-push.ts)"
     ]
   }
 }

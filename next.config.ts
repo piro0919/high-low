@@ -7,6 +7,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const withSerwist = withSerwistInit({
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
+  // Note: Turbopackでは動作しない。Push通知をテストするには npm run build && npm run start を使用
   disable: process.env.NODE_ENV !== "production",
 });
 

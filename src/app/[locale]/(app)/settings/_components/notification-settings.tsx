@@ -1,5 +1,7 @@
 "use client";
 
+import { format, setHours, setMinutes } from "date-fns";
+import { enUS, ja } from "date-fns/locale";
 import { Bell, BellOff } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
@@ -49,27 +51,21 @@ function getDefaultUtcSlot(): UtcSlot {
   return "18:00";
 }
 
-// UTCスロットをローカル時間帯の説明に変換
-function getLocalTimeLabel(
-  utcSlot: UtcSlot,
-  t: (key: string) => string,
-): string {
+// UTCスロットをローカル時間のラベルに変換
+function getLocalTimeLabel(utcSlot: UtcSlot, locale: string): string {
   const offset = new Date().getTimezoneOffset();
   const offsetHours = -offset / 60;
 
   const utcHour = Number.parseInt(utcSlot.split(":")[0] ?? "0", 10);
   const localHour = (utcHour + offsetHours + 24) % 24;
 
-  if (localHour >= 5 && localHour < 11) {
-    return t("timeMorning");
-  }
-  if (localHour >= 11 && localHour < 15) {
-    return t("timeNoon");
-  }
-  if (localHour >= 15 && localHour < 19) {
-    return t("timeEvening");
-  }
-  return t("timeNight");
+  // 今日の日付でローカル時間を作成
+  const date = setMinutes(setHours(new Date(), localHour), 0);
+  const dateLocale = locale === "ja" ? ja : enUS;
+
+  // 「21:00頃」のようなフォーマット
+  const timeStr = format(date, "H:mm", { locale: dateLocale });
+  return locale === "ja" ? `${timeStr}頃` : `Around ${timeStr}`;
 }
 
 export function NotificationSettings() {
@@ -322,16 +318,16 @@ export function NotificationSettings() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="00:00">
-                  {getLocalTimeLabel("00:00", t)}
+                  {getLocalTimeLabel("00:00", locale)}
                 </SelectItem>
                 <SelectItem value="06:00">
-                  {getLocalTimeLabel("06:00", t)}
+                  {getLocalTimeLabel("06:00", locale)}
                 </SelectItem>
                 <SelectItem value="12:00">
-                  {getLocalTimeLabel("12:00", t)}
+                  {getLocalTimeLabel("12:00", locale)}
                 </SelectItem>
                 <SelectItem value="18:00">
-                  {getLocalTimeLabel("18:00", t)}
+                  {getLocalTimeLabel("18:00", locale)}
                 </SelectItem>
               </SelectContent>
             </Select>
