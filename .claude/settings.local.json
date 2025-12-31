@@ -47,7 +47,9 @@
       "Bash(jq:*)",
       "Bash(npx tsx:*)",
       "Bash(npm run push:test:*)",
-      "Bash(npm run push:test:prod:*)"
+      "Bash(npm run push:test:prod:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm view:*)"
     ]
   }
 }
