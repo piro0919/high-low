@@ -150,8 +150,8 @@ export function LandingContent() {
           </div>
 
           {/* Decorative elements */}
-          <div className="absolute top-32 left-1/4 size-72 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute top-64 right-1/4 size-96 rounded-full bg-purple-500/10 blur-3xl" />
+          <div className="-z-10 pointer-events-none absolute top-32 left-1/4 size-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="-z-10 pointer-events-none absolute top-64 right-1/4 size-96 rounded-full bg-purple-500/10 blur-3xl" />
 
           <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40">
             <div className="grid items-center gap-16 lg:grid-cols-2">
