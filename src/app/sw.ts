@@ -79,32 +79,50 @@ serwist.addEventListeners();
 
 // Push notification handling
 self.addEventListener("push", (event) => {
-  if (!event.data) {
-    return;
-  }
+  // waitUntil must be called synchronously at the top level
+  // to keep the service worker alive in background
+  const promiseChain = (async () => {
+    if (!event.data) {
+      // Must show a notification even without data (browser requirement)
+      await self.registration.showNotification("High or Low", {
+        body: "新しい通知があります",
+        icon: "/icon-192.png",
+        badge: "/icon-192.png",
+      });
+      return;
+    }
 
-  try {
-    const data = event.data.json() as {
-      title: string;
-      body: string;
-      icon?: string;
-      badge?: string;
-      url?: string;
-    };
+    try {
+      const data = event.data.json() as {
+        title: string;
+        body: string;
+        icon?: string;
+        badge?: string;
+        url?: string;
+      };
 
-    const options = {
-      body: data.body,
-      icon: data.icon || "/icon-192.png",
-      badge: data.badge || "/icon-192.png",
-      data: { url: data.url || "/" },
-      vibrate: [100, 50, 100],
-      requireInteraction: true,
-    } satisfies NotificationOptions & { vibrate?: number[] };
+      const options = {
+        body: data.body,
+        icon: data.icon || "/icon-192.png",
+        badge: data.badge || "/icon-192.png",
+        data: { url: data.url || "/" },
+        vibrate: [100, 50, 100],
+        requireInteraction: true,
+      } satisfies NotificationOptions & { vibrate?: number[] };
 
-    event.waitUntil(self.registration.showNotification(data.title, options));
-  } catch (error) {
-    console.error("[SW] Error processing push:", error);
-  }
+      await self.registration.showNotification(data.title, options);
+    } catch (error) {
+      console.error("[SW] Error processing push:", error);
+      // Show fallback notification on error
+      await self.registration.showNotification("High or Low", {
+        body: "通知があります",
+        icon: "/icon-192.png",
+        badge: "/icon-192.png",
+      });
+    }
+  })();
+
+  event.waitUntil(promiseChain);
 });
 
 // Notification click handling
