@@ -51,7 +51,8 @@
       "Bash(npm outdated:*)",
       "Bash(npm view:*)",
       "Bash(npm run format:*)",
-      "Bash(identify:*)"
+      "Bash(identify:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }
