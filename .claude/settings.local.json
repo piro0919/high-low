@@ -49,7 +49,8 @@
       "Bash(npm run push:test:*)",
       "Bash(npm run push:test:prod:*)",
       "Bash(npm outdated:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(npm run format:*)"
     ]
   }
 }

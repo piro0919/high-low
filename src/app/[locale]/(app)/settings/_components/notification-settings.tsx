@@ -84,11 +84,30 @@ export function NotificationSettings() {
   // 現在のendpointを保持
   const [currentEndpoint, setCurrentEndpoint] = useState<string | null>(null);
 
+  // Service Workerが準備できているか
+  const [isServiceWorkerReady, setIsServiceWorkerReady] = useState(false);
+
   // サブスクリプション状態を取得する関数
   const fetchSubscriptionState = useCallback(async () => {
     try {
       const registration = await navigator.serviceWorker.getRegistration();
-      if (!registration?.active) {
+      if (!registration) {
+        setIsServiceWorkerReady(false);
+        return;
+      }
+
+      // active, waiting, installing のいずれかがあればOK
+      const worker =
+        registration.active || registration.waiting || registration.installing;
+      if (!worker) {
+        setIsServiceWorkerReady(false);
+        return;
+      }
+
+      setIsServiceWorkerReady(true);
+
+      // pushManagerはactiveなワーカーが必要
+      if (!registration.active) {
         return;
       }
 
@@ -322,6 +341,11 @@ export function NotificationSettings() {
     );
   }
 
+  // オフからオンにするにはService Workerが必要
+  const isCurrentlyEnabled = subscription?.enabled ?? false;
+  const canEnableToggle = isServiceWorkerReady || isCurrentlyEnabled;
+  const isToggleDisabled = isSaving || !canEnableToggle;
+
   return (
     <Card>
       <CardHeader>
@@ -347,7 +371,7 @@ export function NotificationSettings() {
                 disableNotifications();
               }
             }}
-            disabled={isSaving}
+            disabled={isToggleDisabled}
           />
         </div>
 
