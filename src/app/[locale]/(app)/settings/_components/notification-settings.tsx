@@ -81,22 +81,26 @@ export function NotificationSettings() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
-  // 初期化
-  useEffect(() => {
-    const init = async () => {
-      // ブラウザサポートチェック
-      if (!("serviceWorker" in navigator && "PushManager" in window)) {
-        setIsSupported(false);
-        setIsLoading(false);
+  // 現在のendpointを保持
+  const [currentEndpoint, setCurrentEndpoint] = useState<string | null>(null);
+
+  // サブスクリプション状態を取得する関数
+  const fetchSubscriptionState = useCallback(async () => {
+    try {
+      const registration = await navigator.serviceWorker.getRegistration();
+      if (!registration?.active) {
         return;
       }
 
-      setIsSupported(true);
-      setPermission(Notification.permission);
+      const pushSubscription = await registration.pushManager.getSubscription();
+      const endpoint = pushSubscription?.endpoint;
 
-      // 既存のサブスクリプションを取得
-      try {
-        const response = await fetch("/api/push/subscription");
+      if (endpoint) {
+        setCurrentEndpoint(endpoint);
+
+        const response = await fetch(
+          `/api/push/subscription?endpoint=${encodeURIComponent(endpoint)}`,
+        );
         if (response.ok) {
           const data = (await response.json()) as {
             subscription?: { enabled: boolean; utcSlot: UtcSlot };
@@ -108,15 +112,44 @@ export function NotificationSettings() {
             });
           }
         }
-      } catch {
-        // エラーは無視
       }
+    } catch {
+      // エラーは無視
+    }
+  }, []);
 
+  // 初期化
+  useEffect(() => {
+    // ブラウザサポートチェック
+    if (!("serviceWorker" in navigator && "PushManager" in window)) {
+      setIsSupported(false);
       setIsLoading(false);
+      return;
+    }
+
+    setIsSupported(true);
+    setPermission(Notification.permission);
+
+    // 初回チェック
+    fetchSubscriptionState().then(() => setIsLoading(false));
+
+    // Service Workerがアクティブになった時に再チェック
+    const handleControllerChange = () => {
+      fetchSubscriptionState();
     };
 
-    init();
-  }, []);
+    navigator.serviceWorker.addEventListener(
+      "controllerchange",
+      handleControllerChange,
+    );
+
+    return () => {
+      navigator.serviceWorker.removeEventListener(
+        "controllerchange",
+        handleControllerChange,
+      );
+    };
+  }, [fetchSubscriptionState]);
 
   // 通知許可をリクエスト
   const requestPermission = useCallback(async () => {
@@ -174,6 +207,8 @@ export function NotificationSettings() {
         throw new Error("Failed to save subscription");
       }
 
+      // endpointを保存
+      setCurrentEndpoint(pushSubscription.endpoint);
       setSubscription({ enabled: true, utcSlot });
       toast.success(t("enabled"), {
         description: t("enabledDescription"),
@@ -192,8 +227,19 @@ export function NotificationSettings() {
     setIsSaving(true);
 
     try {
+      // ブラウザの購読を取得してendpointを確認
+      const registration = await navigator.serviceWorker.ready;
+      const pushSubscription = await registration.pushManager.getSubscription();
+      const endpoint = pushSubscription?.endpoint || currentEndpoint;
+
+      if (!endpoint) {
+        throw new Error("No endpoint found");
+      }
+
       const response = await fetch("/api/push/subscription", {
         method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint }),
       });
 
       if (!response.ok) {
@@ -201,12 +247,11 @@ export function NotificationSettings() {
       }
 
       // ブラウザの購読も解除
-      const registration = await navigator.serviceWorker.ready;
-      const pushSubscription = await registration.pushManager.getSubscription();
       if (pushSubscription) {
         await pushSubscription.unsubscribe();
       }
 
+      setCurrentEndpoint(null);
       setSubscription(null);
       toast.success(t("disabled"), {
         description: t("disabledDescription"),
@@ -218,12 +263,15 @@ export function NotificationSettings() {
     } finally {
       setIsSaving(false);
     }
-  }, [t]);
+  }, [currentEndpoint, t]);
 
   // 時間帯を変更
   const handleSlotChange = useCallback(
     async (utcSlot: UtcSlot) => {
       if (!subscription) {
+        return;
+      }
+      if (!currentEndpoint) {
         return;
       }
 
@@ -233,7 +281,7 @@ export function NotificationSettings() {
         const response = await fetch("/api/push/subscription", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ utcSlot }),
+          body: JSON.stringify({ endpoint: currentEndpoint, utcSlot }),
         });
 
         if (!response.ok) {
@@ -252,7 +300,7 @@ export function NotificationSettings() {
         setIsSaving(false);
       }
     },
-    [subscription, t],
+    [subscription, currentEndpoint, t],
   );
 
   // 非対応環境
