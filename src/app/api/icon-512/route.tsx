@@ -2,13 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const size = {
-  width: 512,
-  height: 512,
-};
-export const contentType = "image/png";
-
-export default async function Icon() {
+export async function GET() {
   const logoData = await readFile(join(process.cwd(), "public/logo.png"));
   const logoBase64 = `data:image/png;base64,${logoData.toString("base64")}`;
 
@@ -33,7 +27,8 @@ export default async function Icon() {
       />
     </div>,
     {
-      ...size,
+      width: 512,
+      height: 512,
     },
   );
 }
