@@ -94,7 +94,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
       >
-        <SerwistProvider swUrl="/serwist/sw">
+        <SerwistProvider swUrl="/serwist/sw.js">
           <NextIntlClientProvider messages={messages}>
             <ThemeProvider
               attribute="class"
