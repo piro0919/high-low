@@ -19,6 +19,6 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // api, _next, _vercel, ファイル拡張子付き、auth/callbackを除くすべてのパス
-  matcher: ["/((?!api|_next|_vercel|auth/callback|.*\\..*).*)", "/"],
+  // api, _next, _vercel, serwist, ファイル拡張子付き、auth/callbackを除くすべてのパス
+  matcher: ["/((?!api|_next|_vercel|serwist|auth/callback|.*\\..*).*)", "/"],
 };
