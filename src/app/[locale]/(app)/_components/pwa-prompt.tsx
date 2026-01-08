@@ -12,7 +12,7 @@ export function PwaPrompt() {
 
   return (
     <PWAPrompt
-      appIconPath="/apple-icon.png"
+      appIconPath="/api/apple-icon"
       copyTitle={t("copyTitle")}
       copyDescription={t("copyDescription")}
       copyShareStep={t("copyShareStep")}
