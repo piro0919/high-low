@@ -65,7 +65,7 @@
     "@serwist/turbopack": "9.5.0",
     "@tailwindcss/postcss": "4.1.18",
     "@total-typescript/ts-reset": "0.6.1",
-    "@types/node": "20.19.27",
+    "@types/node": "20.19.28",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/web-push": "3.6.4",
