@@ -95,6 +95,10 @@ export async function GET(request: Request) {
             },
           },
           payload,
+          {
+            urgency: "high",
+            TTL: 86400, // 24時間有効
+          },
         );
         return { id: sub.id, success: true };
       } catch (err) {
