@@ -52,7 +52,8 @@
       "Bash(npm view:*)",
       "Bash(npm run format:*)",
       "Bash(identify:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(git rebase:*)"
     ]
   }
 }

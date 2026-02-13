@@ -1,8 +1,9 @@
 {
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit"
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"
@@ -10,12 +11,12 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit"
   },
-  "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "i18n-ally.localesPaths": ["messages", "src/i18n"],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
