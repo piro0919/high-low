@@ -97,7 +97,10 @@ export async function GET(request: Request) {
           payload,
           {
             urgency: "high",
-            TTL: 86400, // 24時間有効
+            TTL: 3600, // 1時間（Doze解除を待ちつつ「今さら通知」を防止）
+            headers: {
+              Topic: "daily-mood", // 同トピックの未配信通知をPush Serviceが最新1件に上書き
+            },
           },
         );
         return { id: sub.id, success: true };
