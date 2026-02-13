@@ -53,7 +53,8 @@
       "Bash(npm run format:*)",
       "Bash(identify:*)",
       "Bash(npx tsc:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(sips:*)"
     ]
   }
 }
