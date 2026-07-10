@@ -58,7 +58,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.2",
+    "@biomejs/biome": "2.5.3",
     "@commitlint/cli": "20.5.3",
     "@commitlint/config-conventional": "20.5.3",
     "@secretlint/secretlint-rule-preset-recommend": "11.7.1",
@@ -73,7 +73,7 @@
     "better-typescript-lib": "2.12.0",
     "dotenv": "17.4.2",
     "esbuild-wasm": "0.28.1",
-    "lefthook": "2.1.9",
+    "lefthook": "2.1.10",
     "next-sitemap": "4.2.3",
     "puppeteer": "24.43.1",
     "secretlint": "11.7.1",
