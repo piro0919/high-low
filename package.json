@@ -61,6 +61,7 @@
     "@biomejs/biome": "2.5.10",
     "@commitlint/cli": "20.5.3",
     "@commitlint/config-conventional": "20.5.3",
+    "@piro0919/biome-config": "github:piro0919/biome-config#v1.0.0",
     "@secretlint/secretlint-rule-preset-recommend": "11.7.1",
     "@serwist/turbopack": "9.5.12",
     "@tailwindcss/postcss": "4.3.3",
